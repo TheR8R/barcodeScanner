@@ -1,7 +1,7 @@
 // Barcode scanner module using Quagga2
 let isRunning = false;
 let lastDrawTime = 0;
-const DRAW_INTERVAL = 500; // Minimum ms between overlay updates
+const DRAW_INTERVAL = 300; // Minimum ms between overlay updates (reduced for more responsive feedback)
 
 function startBarcodeScanner(containerElement, onSuccess, onError) {
     Quagga.init({
@@ -10,17 +10,29 @@ function startBarcodeScanner(containerElement, onSuccess, onError) {
             type: "LiveStream",
             target: containerElement,
             constraints: {
-                width: 640,
-                height: 480,
+                width: 1280,
+                height: 720,
                 facingMode: "environment" // Use rear camera on mobile
             },
+            area: { // Scan a larger area of the frame
+                top: "0%",
+                right: "0%",
+                left: "0%",
+                bottom: "0%"
+            }
         },
+        frequency: 10, // Process frames more frequently
+        numOfWorkers: 4, // Use multiple workers for better performance
         decoder: {
             readers: [
                 "code_128_reader"
             ]
         },
-        locate: true
+        locate: true,
+        locator: {
+            patchSize: "medium", // Adjust patch size for better detection
+            halfSample: false // Don't downsample for better quality
+        }
     }, function(err) {
         if (err) {
             console.error("Quagga initialization failed:", err);
