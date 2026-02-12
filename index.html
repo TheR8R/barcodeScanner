@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>replace demo</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="scanner-section">
+            <div id="scanner-container">
+                <video id="video" autoplay playsinline></video>
+                <canvas id="canvas" class="drawingBuffer"></canvas>
+            </div>
+            <button id="replace-btn">Start Scanner</button>
+        </div>
+        <div class="chat-section">
+            <div class="chat-header">
+                <span>Scanned Codes</span>
+                <button id="reset-btn" title="Clear scanned codes list">Reset</button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="chat-placeholder">Click "Start Scanner" to begin scanning...</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@ericblade/quagga2@1.12.1/dist/quagga.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script src="main.js"></script>
+<script src="src/barcodeScanner.js"></script>
+<script src="src/qrScanner.js"></script>
+</html>
