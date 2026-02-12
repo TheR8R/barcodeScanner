@@ -10,8 +10,8 @@ function startBarcodeScanner(containerElement, onSuccess, onError) {
             type: "LiveStream",
             target: containerElement,
             constraints: {
-                width: 1280,
-                height: 720,
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
                 facingMode: "environment" // Use rear camera on mobile
             },
             area: { // Scan a larger area of the frame
@@ -22,7 +22,7 @@ function startBarcodeScanner(containerElement, onSuccess, onError) {
             }
         },
         frequency: 10, // Process frames more frequently
-        numOfWorkers: 4, // Use multiple workers for better performance
+        numOfWorkers: navigator.hardwareConcurrency ? Math.min(navigator.hardwareConcurrency, 2) : 1,
         decoder: {
             readers: [
                 "code_128_reader"
@@ -38,6 +38,13 @@ function startBarcodeScanner(containerElement, onSuccess, onError) {
             console.error("Quagga initialization failed:", err);
             if (onError) onError(err);
             return;
+        }
+        
+        // iOS Safari requires playsinline to prevent fullscreen video
+        const video = containerElement.querySelector('video');
+        if (video) {
+            video.setAttribute('playsinline', true);
+            video.setAttribute('webkit-playsinline', true);
         }
         
         console.log("Quagga initialization succeeded");

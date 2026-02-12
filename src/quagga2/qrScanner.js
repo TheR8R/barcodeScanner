@@ -14,13 +14,16 @@ function startQRScanner() {
 
     // Create canvas for QR code detection
     qrCanvas = document.createElement('canvas');
-    qrContext = qrCanvas.getContext('2d');
+    qrContext = qrCanvas.getContext('2d', { willReadFrequently: true });
 
     // Start QR scanning loop
     qrScanInterval = setInterval(() => {
         if (videoElement.readyState === videoElement.HAVE_ENOUGH_DATA) {
-            qrCanvas.height = videoElement.videoHeight;
-            qrCanvas.width = videoElement.videoWidth;
+            // Only resize canvas when video dimensions change
+            if (qrCanvas.height !== videoElement.videoHeight || qrCanvas.width !== videoElement.videoWidth) {
+                qrCanvas.height = videoElement.videoHeight;
+                qrCanvas.width = videoElement.videoWidth;
+            }
             qrContext.drawImage(videoElement, 0, 0, qrCanvas.width, qrCanvas.height);
             
             const imageData = qrContext.getImageData(0, 0, qrCanvas.width, qrCanvas.height);

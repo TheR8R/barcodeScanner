@@ -2,6 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>replace demo</title>
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="style.css" />
@@ -9,10 +11,7 @@
 <body>
     <div class="container">
         <div class="scanner-section">
-            <div id="scanner-container">
-                <video id="video" autoplay playsinline></video>
-                <canvas id="canvas" class="drawingBuffer"></canvas>
-            </div>
+            <div id="scanner-container"></div>
             <button id="replace-btn">Start Scanner</button>
         </div>
         <div class="chat-section">

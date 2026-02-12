@@ -20,6 +20,20 @@ window.scannerState = {
     playBeep
 };
 
+// Shared AudioContext - created once on first user gesture (required by iOS)
+let audioContext = null;
+
+function ensureAudioContext() {
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    // iOS suspends AudioContext until resumed inside a user gesture
+    if (audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
+    return audioContext;
+}
+
 function addBarcodeToChat(code, format) {
     const now = new Date();
     const timeString = now.toLocaleTimeString();
@@ -39,27 +53,33 @@ function addBarcodeToChat(code, format) {
 }
 
 function playBeep() {
-    // Create a short beep sound
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.frequency.value = 800;
-    oscillator.type = 'sine';
-    
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-    
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.1);
+    try {
+        const ctx = ensureAudioContext();
+        const oscillator = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(ctx.destination);
+        
+        oscillator.frequency.value = 800;
+        oscillator.type = 'sine';
+        
+        gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+        
+        oscillator.start(ctx.currentTime);
+        oscillator.stop(ctx.currentTime + 0.1);
+    } catch (e) {
+        console.warn('Beep failed:', e);
+    }
 }
 
 function startScanners() {
     replaceBtn.disabled = true;
     replaceBtn.textContent = "Initializing...";
+    
+    // Initialize AudioContext on user gesture (required by iOS Safari)
+    ensureAudioContext();
     
     // Start barcode scanner
     window.BarcodeScanner.start(scannerContainer, () => {
