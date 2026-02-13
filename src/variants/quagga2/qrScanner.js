@@ -99,12 +99,10 @@ export function createQuaggaQRScanner(config = {}) {
             }
             qrContext.drawImage(videoElement, 0, 0, qrCanvas.width, qrCanvas.height);
 
-            const decodeStart = performance.now();
             const imageData = qrContext.getImageData(0, 0, qrCanvas.width, qrCanvas.height);
             const code = jsQR(imageData.data, imageData.width, imageData.height, {
                 inversionAttempts: 'dontInvert'
             });
-            perf?.recordDecodeMs(performance.now() - decodeStart);
 
             if (code) {
                 handleQRDetection(code);

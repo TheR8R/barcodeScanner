@@ -207,41 +207,36 @@ export function createZXingScannerVariant(config) {
                     },
                     localVideoElement,
                     (result, error) => {
-                        const callbackStart = performance.now();
                         perf?.recordCallback();
                         if (!isRunning) return;
-                        try {
-                            if (result) {
-                                drawDetectionOverlay(result);
+                        if (result) {
+                            drawDetectionOverlay(result);
 
-                                const resultText = result.getText();
-                                const format = normalizeFormat(result.getBarcodeFormat(), BarcodeFormat);
+                            const resultText = result.getText();
+                            const format = normalizeFormat(result.getBarcodeFormat(), BarcodeFormat);
 
-                                if (!resultText || !format) {
-                                    return;
-                                }
-
-                                if (!shouldEmit(resultText, format)) {
-                                    return;
-                                }
-
-                                state.addBarcodeToChat(resultText, format);
-                                state.playBeep();
-                                perf?.recordDetection();
+                            if (!resultText || !format) {
+                                return;
                             }
 
-                            if (error) {
-                                const message = String(error.message || '');
-                                if (
-                                    !message.includes('NotFoundException') &&
-                                    !message.includes('No MultiFormat Readers')
-                                ) {
-                                    console.debug('ZXing decode warning:', error);
-                                    perf?.recordError();
-                                }
+                            if (!shouldEmit(resultText, format)) {
+                                return;
                             }
-                        } finally {
-                            perf?.recordDecodeMs(performance.now() - callbackStart);
+
+                            state.addBarcodeToChat(resultText, format);
+                            state.playBeep();
+                            perf?.recordDetection();
+                        }
+
+                        if (error) {
+                            const message = String(error.message || '');
+                            if (
+                                !message.includes('NotFoundException') &&
+                                !message.includes('No MultiFormat Readers')
+                            ) {
+                                console.debug('ZXing decode warning:', error);
+                                perf?.recordError();
+                            }
                         }
                     }
                 ).catch((error) => {

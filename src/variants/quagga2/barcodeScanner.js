@@ -112,7 +112,6 @@ export function createQuaggaBarcodeScanner(config = {}) {
                 }
             }
 
-            perf?.recordDecodeMs(performance.now() - callbackStart);
         };
 
         detectedHandler = function (result) {

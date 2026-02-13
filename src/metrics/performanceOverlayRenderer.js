@@ -67,16 +67,8 @@ export function createPerformanceOverlayRenderer() {
 
         const lines = [
             `Scanner Variant: ${snapshot.activeScannerVariant}`,
-            `Status: ${snapshot.isRunning ? 'running' : 'idle'}`,
             `Uptime: ${snapshot.uptimeSeconds}s`,
-            `FPS: ${snapshot.fps}`,
             `Load(est): ${snapshot.estimatedCpuPercent}%`,
-            `Callbacks: ${snapshot.callbackCount}`,
-            `Callbacks/s: ${snapshot.callbacksPerSecond}`,
-            `Decode ms/s: ${snapshot.decodeMsPerSecond.toFixed(1)}`,
-            `Decode avg: ${snapshot.avgDecodeMs.toFixed(1)}ms`,
-            `Detections: ${snapshot.detectionCount}`,
-            `Errors: ${snapshot.errorCount}`,
             `Heap: ${formatHeapText(snapshot.heapUsedMb)}`
         ];
         setLines(lines);
