@@ -5,11 +5,11 @@ import {
     setRuntimeHandlers,
     scannedCodes,
     detectionBuffer
-} from './src/scannerContext.js';
+} from './src/variants/scannerContext.js';
 
-import './src/quagga2/standard.js';
-import './src/zxing/standard.js';
-import './src/zxing/throttled.js';
+import './src/variants/quagga2/standard.js';
+import './src/variants/zxing/standard.js';
+import './src/variants/zxing/throttled.js';
 
 // Main coordinator - UI and shared state management
 const replaceBtn = document.getElementById('replace-btn');

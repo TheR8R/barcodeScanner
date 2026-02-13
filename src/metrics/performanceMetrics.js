@@ -33,7 +33,6 @@ export function createMonitor() {
         callbackCount = 0;
         callbacksPerSecond = 0;
         callbacksInSecond = 0;
-        decodeCount = 0;
         decodeTimeTotalMs = 0;
         decodeMsPerSecond = 0;
         decodeMsInSecond = 0;
