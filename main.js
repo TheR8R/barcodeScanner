@@ -8,6 +8,7 @@ import {
 } from './src/variants/scannerContext.js';
 
 import './src/variants/quagga2/standard.js';
+import './src/variants/quagga2/throttled.js';
 import './src/variants/zxing/standard.js';
 import './src/variants/zxing/throttled.js';
 

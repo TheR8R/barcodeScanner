@@ -1,4 +1,4 @@
-import { getScannerState, getPerfMonitor } from '../scannerContext.js';
+import { getScannerState } from '../scannerContext.js';
 
 // Configurable jsQR scanner factory that uses Quagga's video element
 export function createQuaggaQRScanner(config = {}) {
@@ -48,7 +48,7 @@ export function createQuaggaQRScanner(config = {}) {
                 count: 1,
                 timeout: setTimeout(() => {
                     state.detectionBuffer.delete(scanKey);
-                }, state.BUFFER_TIMEOUT)
+                }, state.bufferTimeout)
             });
             return;
         }
@@ -59,9 +59,9 @@ export function createQuaggaQRScanner(config = {}) {
         clearTimeout(detection.timeout);
         detection.timeout = setTimeout(() => {
             state.detectionBuffer.delete(scanKey);
-        }, state.BUFFER_TIMEOUT);
+        }, state.bufferTimeout);
 
-        if (detection.count >= state.CONFIRMATION_THRESHOLD) {
+        if (detection.count >= state.confirmationThreshold) {
             clearTimeout(detection.timeout);
             state.detectionBuffer.delete(scanKey);
 
@@ -70,17 +70,13 @@ export function createQuaggaQRScanner(config = {}) {
 
             state.addBarcodeToChat(qrData, 'QR_CODE');
             state.playBeep();
-            state.perfMonitor?.recordDetection();
         }
     }
 
     function start(containerElement) {
-        const perf = getPerfMonitor();
-
         videoElement = resolveVideoElement(containerElement);
         if (!videoElement) {
             console.error('Video element not found');
-            perf?.recordError();
             return;
         }
 
@@ -88,7 +84,6 @@ export function createQuaggaQRScanner(config = {}) {
         qrContext = qrCanvas.getContext('2d', { willReadFrequently: true });
 
         qrScanInterval = setInterval(() => {
-            perf?.recordCallback();
             if (videoElement.readyState !== videoElement.HAVE_ENOUGH_DATA) {
                 return;
             }

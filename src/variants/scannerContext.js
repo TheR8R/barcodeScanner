@@ -2,8 +2,8 @@ const scannerVariantPlugins = {};
 
 const scannedCodes = new Set();
 const detectionBuffer = new Map();
-const CONFIRMATION_THRESHOLD = 2;
-const BUFFER_TIMEOUT = 500;
+const confirmationThreshold = 2;
+const bufferTimeout = 500;
 
 let addBarcodeToChatHandler = () => {};
 let playBeepHandler = () => {};
@@ -29,8 +29,8 @@ export function getScannerState() {
     return {
         scannedCodes,
         detectionBuffer,
-        CONFIRMATION_THRESHOLD,
-        BUFFER_TIMEOUT,
+        confirmationThreshold,
+        bufferTimeout,
         addBarcodeToChat: addBarcodeToChatHandler,
         playBeep: playBeepHandler,
         perfMonitor: perfMonitorHandler
@@ -53,6 +53,6 @@ export function hasScannerVariant(name) {
 export {
     scannedCodes,
     detectionBuffer,
-    CONFIRMATION_THRESHOLD,
-    BUFFER_TIMEOUT
+    confirmationThreshold,
+    bufferTimeout
 };

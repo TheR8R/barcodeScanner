@@ -1,4 +1,4 @@
-import { getScannerState, getPerfMonitor } from '../scannerContext.js';
+import { getScannerState } from '../scannerContext.js';
 
 // Configurable Quagga2 barcode scanner factory
 export function createQuaggaBarcodeScanner(config = {}) {
@@ -51,12 +51,9 @@ export function createQuaggaBarcodeScanner(config = {}) {
     }
 
     function start(containerElement, onSuccess, onError) {
-        const perf = getPerfMonitor();
-
         Quagga.init(buildQuaggaConfig(containerElement), function (err) {
             if (err) {
                 console.error('Quagga initialization failed:', err);
-                perf?.recordError();
                 if (onError) onError(err);
                 return;
             }
@@ -73,8 +70,6 @@ export function createQuaggaBarcodeScanner(config = {}) {
         });
 
         processedHandler = function (result) {
-            const callbackStart = performance.now();
-            perf?.recordCallback();
             const now = Date.now();
 
             if (now - lastDrawTime < drawIntervalMs) {
@@ -115,8 +110,6 @@ export function createQuaggaBarcodeScanner(config = {}) {
         };
 
         detectedHandler = function (result) {
-            perf?.recordCallback();
-
             const code = result.codeResult.code;
             const format = result.codeResult.format;
             const scanKey = `${code}-${format}`;
@@ -131,7 +124,7 @@ export function createQuaggaBarcodeScanner(config = {}) {
                     count: 1,
                     timeout: setTimeout(() => {
                         state.detectionBuffer.delete(scanKey);
-                    }, state.BUFFER_TIMEOUT)
+                    }, state.bufferTimeout)
                 });
                 return;
             }
@@ -142,9 +135,9 @@ export function createQuaggaBarcodeScanner(config = {}) {
             clearTimeout(detection.timeout);
             detection.timeout = setTimeout(() => {
                 state.detectionBuffer.delete(scanKey);
-            }, state.BUFFER_TIMEOUT);
+            }, state.bufferTimeout);
 
-            if (detection.count >= state.CONFIRMATION_THRESHOLD) {
+            if (detection.count >= state.confirmationThreshold) {
                 clearTimeout(detection.timeout);
                 state.detectionBuffer.delete(scanKey);
 
@@ -153,7 +146,6 @@ export function createQuaggaBarcodeScanner(config = {}) {
 
                 state.addBarcodeToChat(code, format);
                 state.playBeep();
-                perf?.recordDetection();
             }
         };
 
