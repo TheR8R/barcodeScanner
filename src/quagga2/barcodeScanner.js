@@ -1,168 +1,184 @@
-// Barcode scanner module using Quagga2
-let isRunning = false;
-let lastDrawTime = 0;
-const DRAW_INTERVAL = 300; // Minimum ms between overlay updates (reduced for more responsive feedback)
+import { getScannerState, getPerfMonitor } from '../scannerContext.js';
 
-function startBarcodeScanner(containerElement, onSuccess, onError) {
-    Quagga.init({
-        inputStream: {
-            name: "Live",
-            type: "LiveStream",
-            target: containerElement,
-            constraints: {
-                width: { ideal: 1280 },
-                height: { ideal: 720 },
-                facingMode: "environment" // Use rear camera on mobile
+// Configurable Quagga2 barcode scanner factory
+export function createQuaggaBarcodeScanner(config = {}) {
+    let isRunning = false;
+    let lastDrawTime = 0;
+    let processedHandler = null;
+    let detectedHandler = null;
+
+    const drawIntervalMs = config.drawIntervalMs ?? 300;
+    const frequency = config.frequency ?? 10;
+    const width = config.width ?? 1280;
+    const height = config.height ?? 720;
+    const maxWorkers = config.maxWorkers ?? 2;
+    const readers = config.readers ?? ['code_128_reader'];
+    const locate = config.locate ?? true;
+    const patchSize = config.patchSize ?? 'medium';
+    const halfSample = config.halfSample ?? false;
+
+    function buildQuaggaConfig(containerElement) {
+        return {
+            inputStream: {
+                name: 'Live',
+                type: 'LiveStream',
+                target: containerElement,
+                constraints: {
+                    width: { ideal: width },
+                    height: { ideal: height },
+                    facingMode: 'environment'
+                },
+                area: {
+                    top: '0%',
+                    right: '0%',
+                    left: '0%',
+                    bottom: '0%'
+                }
             },
-            area: { // Scan a larger area of the frame
-                top: "0%",
-                right: "0%",
-                left: "0%",
-                bottom: "0%"
+            frequency,
+            numOfWorkers: navigator.hardwareConcurrency
+                ? Math.min(navigator.hardwareConcurrency, maxWorkers)
+                : 1,
+            decoder: {
+                readers
+            },
+            locate,
+            locator: {
+                patchSize,
+                halfSample
             }
-        },
-        frequency: 10, // Process frames more frequently
-        numOfWorkers: navigator.hardwareConcurrency ? Math.min(navigator.hardwareConcurrency, 2) : 1,
-        decoder: {
-            readers: [
-                "code_128_reader"
-            ]
-        },
-        locate: true,
-        locator: {
-            patchSize: "medium", // Adjust patch size for better detection
-            halfSample: false // Don't downsample for better quality
-        }
-    }, function(err) {
-        if (err) {
-            console.error("Quagga initialization failed:", err);
-            if (onError) onError(err);
-            return;
-        }
-        
-        // iOS Safari requires playsinline to prevent fullscreen video
-        const video = containerElement.querySelector('video');
-        if (video) {
-            video.setAttribute('playsinline', true);
-            video.setAttribute('webkit-playsinline', true);
-        }
-        
-        console.log("Quagga initialization succeeded");
-        Quagga.start();
-        isRunning = true;
-        
-        if (onSuccess) onSuccess();
-    });
-
-    // Draw visual overlay on detection (throttled to save resources)
-    Quagga.onProcessed(function(result) {
-        const now = Date.now();
-        
-        // Throttle drawing to save resources
-        if (now - lastDrawTime < DRAW_INTERVAL) {
-            return;
-        }
-        lastDrawTime = now;
-        
-        const drawingCtx = Quagga.canvas.ctx.overlay;
-        const drawingCanvas = Quagga.canvas.dom.overlay;
-
-        // Always clear the canvas first
-        if (drawingCtx && drawingCanvas) {
-            drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
-        }
-
-        if (result) {
-            // Draw all detection boxes in blue
-            if (result.boxes) {
-                result.boxes.filter(function (box) {
-                    return box !== result.box;
-                }).forEach(function (box) {
-                    Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "blue", lineWidth: 2});
-                });
-            }
-
-            // Draw the best detection box in green
-            if (result.box) {
-                Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
-            }
-
-            // Draw the barcode line in red when detected
-            if (result.codeResult && result.codeResult.code) {
-                Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
-            }
-        }
-    });
-
-    // Handle detected barcodes with confirmation mechanism
-    Quagga.onDetected(function(result) {
-        const code = result.codeResult.code;
-        const format = result.codeResult.format;
-        const scanKey = `${code}-${format}`;
-        
-        const state = window.scannerState;
-        
-        // Check if already scanned recently
-        if (state.scannedCodes.has(scanKey)) {
-            return;
-        }
-        
-        // Confirmation mechanism: require multiple detections
-        if (!state.detectionBuffer.has(scanKey)) {
-            // First detection - add to buffer
-            state.detectionBuffer.set(scanKey, {
-                count: 1,
-                timeout: setTimeout(() => {
-                    state.detectionBuffer.delete(scanKey);
-                }, state.BUFFER_TIMEOUT)
-            });
-            console.log(`First barcode detection: ${code}`);
-            return;
-        }
-        
-        // Subsequent detection
-        const detection = state.detectionBuffer.get(scanKey);
-        detection.count++;
-        
-        // Clear the timeout and set a new one
-        clearTimeout(detection.timeout);
-        detection.timeout = setTimeout(() => {
-            state.detectionBuffer.delete(scanKey);
-        }, state.BUFFER_TIMEOUT);
-        
-        // If we've reached confirmation threshold, accept the barcode
-        if (detection.count >= state.CONFIRMATION_THRESHOLD) {
-            // Clear from buffer
-            clearTimeout(detection.timeout);
-            state.detectionBuffer.delete(scanKey);
-            
-            // Add to scanned codes to prevent immediate re-scanning
-            state.scannedCodes.add(scanKey);
-            setTimeout(() => state.scannedCodes.delete(scanKey), 2000);
-            
-            // Add barcode to chat
-            state.addBarcodeToChat(code, format);
-            
-            // Play beep sound
-            state.playBeep();
-            
-            console.log(`Confirmed barcode: ${code}`);
-        } else {
-            console.log(`Barcode detection ${detection.count}/${state.CONFIRMATION_THRESHOLD}: ${code}`);
-        }
-    });
-}
-
-function stopBarcodeScanner() {
-    if (isRunning) {
-        Quagga.stop();
-        isRunning = false;
-        console.log('Barcode scanner stopped');
+        };
     }
-}
 
-// Export functions to global scope
-window.BarcodeScanner = {
-    start: startBarcodeScanner,
-    stop: stopBarcodeScanner
-};
+    function start(containerElement, onSuccess, onError) {
+        const perf = getPerfMonitor();
+
+        Quagga.init(buildQuaggaConfig(containerElement), function (err) {
+            if (err) {
+                console.error('Quagga initialization failed:', err);
+                perf?.recordError();
+                if (onError) onError(err);
+                return;
+            }
+
+            const video = containerElement.querySelector('video');
+            if (video) {
+                video.setAttribute('playsinline', true);
+                video.setAttribute('webkit-playsinline', true);
+            }
+
+            Quagga.start();
+            isRunning = true;
+            if (onSuccess) onSuccess();
+        });
+
+        processedHandler = function (result) {
+            const callbackStart = performance.now();
+            perf?.recordCallback();
+            const now = Date.now();
+
+            if (now - lastDrawTime < drawIntervalMs) {
+                return;
+            }
+            lastDrawTime = now;
+
+            const drawingCtx = Quagga.canvas?.ctx?.overlay;
+            const drawingCanvas = Quagga.canvas?.dom?.overlay;
+
+            if (drawingCtx && drawingCanvas) {
+                drawingCtx.clearRect(
+                    0,
+                    0,
+                    parseInt(drawingCanvas.getAttribute('width')),
+                    parseInt(drawingCanvas.getAttribute('height'))
+                );
+            }
+
+            if (result) {
+                if (result.boxes) {
+                    result.boxes
+                        .filter((box) => box !== result.box)
+                        .forEach((box) => {
+                            Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: 'blue', lineWidth: 2 });
+                        });
+                }
+
+                if (result.box) {
+                    Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: 'green', lineWidth: 2 });
+                }
+
+                if (result.codeResult && result.codeResult.code) {
+                    Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
+                }
+            }
+
+            perf?.recordDecodeMs(performance.now() - callbackStart);
+        };
+
+        detectedHandler = function (result) {
+            perf?.recordCallback();
+
+            const code = result.codeResult.code;
+            const format = result.codeResult.format;
+            const scanKey = `${code}-${format}`;
+            const state = getScannerState();
+
+            if (state.scannedCodes.has(scanKey)) {
+                return;
+            }
+
+            if (!state.detectionBuffer.has(scanKey)) {
+                state.detectionBuffer.set(scanKey, {
+                    count: 1,
+                    timeout: setTimeout(() => {
+                        state.detectionBuffer.delete(scanKey);
+                    }, state.BUFFER_TIMEOUT)
+                });
+                return;
+            }
+
+            const detection = state.detectionBuffer.get(scanKey);
+            detection.count++;
+
+            clearTimeout(detection.timeout);
+            detection.timeout = setTimeout(() => {
+                state.detectionBuffer.delete(scanKey);
+            }, state.BUFFER_TIMEOUT);
+
+            if (detection.count >= state.CONFIRMATION_THRESHOLD) {
+                clearTimeout(detection.timeout);
+                state.detectionBuffer.delete(scanKey);
+
+                state.scannedCodes.add(scanKey);
+                setTimeout(() => state.scannedCodes.delete(scanKey), 2000);
+
+                state.addBarcodeToChat(code, format);
+                state.playBeep();
+                perf?.recordDetection();
+            }
+        };
+
+        Quagga.onProcessed(processedHandler);
+        Quagga.onDetected(detectedHandler);
+    }
+
+    function stop() {
+        if (processedHandler && typeof Quagga.offProcessed === 'function') {
+            Quagga.offProcessed(processedHandler);
+            processedHandler = null;
+        }
+
+        if (detectedHandler && typeof Quagga.offDetected === 'function') {
+            Quagga.offDetected(detectedHandler);
+            detectedHandler = null;
+        }
+
+        if (isRunning) {
+            Quagga.stop();
+            isRunning = false;
+            console.log('Quagga barcode scanner stopped');
+        }
+    }
+
+    return { start, stop };
+}

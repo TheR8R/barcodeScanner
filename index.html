@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>replace demo</title>
     <link rel="icon" href="data:," />
@@ -11,6 +11,15 @@
 <body>
     <div class="container">
         <div class="scanner-section">
+            <div class="scanner-variant-selector">
+                <label for="scanner-variant-select">Scanner Variant:</label>
+                <select id="scanner-variant-select">
+                    <option value="quagga2">Quagga2 + jsQR</option>
+                    <option value="zxing">ZXing</option>
+                    <option value="zxing-throttled">ZXing (Throttled)</option>
+                </select>
+                <button id="metrics-toggle-btn" type="button">Enable Metrics</button>
+            </div>
             <div id="scanner-container"></div>
             <button id="replace-btn">Start Scanner</button>
         </div>
@@ -27,7 +36,6 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@ericblade/quagga2@1.12.1/dist/quagga.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
-<script src="main.js"></script>
-<script src="src/quagga2/barcodeScanner.js"></script>
-<script src="src/quagga2/qrScanner.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.20.0/umd/index.min.js"></script>
+<script type="module" src="main.js"></script>
 </html>
