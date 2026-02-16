@@ -9,8 +9,6 @@ import {
 
 import './src/variants/quagga2/standard.js';
 import './src/variants/quagga2/throttled.js';
-import './src/variants/zxing/standard.js';
-import './src/variants/zxing/throttled.js';
 
 // Main coordinator - UI and shared state management
 const replaceBtn = document.getElementById('replace-btn');
@@ -142,7 +140,6 @@ function startScanners() {
         }, (error) => {
             console.error('Scanner variant initialization failed:', error);
             if (metricsEnabled) {
-                perfMonitor.recordError();
                 perfMonitor.stop();
             }
             alert('Failed to initialize scanner: ' + error);

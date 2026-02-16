@@ -12,12 +12,10 @@
     <div class="container">
         <div class="scanner-section">
             <div class="scanner-variant-selector">
-                <label for="scanner-variant-select">Scanner Variant:</label>
+                <label for="scanner-variant-select">Scanning Profile:</label>
                 <select id="scanner-variant-select">
-                    <option value="quagga2">Quagga2 + jsQR</option>
+                    <option value="quagga2">Quagga2 + jsQR (Standard)</option>
                     <option value="quagga2-throttled">Quagga2 + jsQR (Throttled)</option>
-                    <option value="zxing">ZXing</option>
-                    <option value="zxing-throttled">ZXing (Throttled)</option>
                 </select>
                 <button id="metrics-toggle-btn" type="button">Enable Metrics</button>
             </div>
@@ -37,6 +35,5 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@ericblade/quagga2@1.12.1/dist/quagga.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.20.0/umd/index.min.js"></script>
 <script type="module" src="main.js"></script>
 </html>

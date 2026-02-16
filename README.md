@@ -7,7 +7,6 @@ This file tracks practical considerations for scanning quality, stability, and p
 - **Confirmation threshold:** a code must be detected **2 times** before it is accepted.
 - **Confirmation window:** both detections must happen within **500 ms** (`bufferTimeout`) or the pending detection is discarded.
 - **Short re-scan cooldown (Quagga2):** accepted scan keys are blocked for **2000 ms** to avoid immediate repeats.
-- **Dedupe window (ZXing):** identical `text + format` is suppressed for **1200 ms**.
 
 ## Camera and decode setup
 
@@ -19,19 +18,14 @@ This file tracks practical considerations for scanning quality, stability, and p
 
 ## Variant tradeoffs to compare
 
-- **Quagga2 (standard):**
+- **Quagga2 profile (standard):**
   - `frequency: 10`
-  - `1280x720`
-  - Quagga overlay draw throttled to `300 ms`
+  - `1920x1080`
   - QR scan interval `300 ms`
-- **ZXing (standard):**
-  - decode interval `220 ms`
-  - `1280x720`
-  - dedupe window `1200 ms`
-- **ZXing (throttled):**
-  - decode interval `420 ms`
+- **Quagga2 profile (throttled):**
+  - `frequency: 5`
   - `960x540`
-  - dedupe window `1200 ms`
+  - QR scan interval `420 ms`
 
 ## Performance-focused measurement notes (iPhone)
 
