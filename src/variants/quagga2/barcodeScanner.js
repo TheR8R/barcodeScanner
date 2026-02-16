@@ -7,47 +7,93 @@ export function createQuaggaBarcodeScanner(config = {}) {
     let processedHandler = null;
     let detectedHandler = null;
 
-    const drawIntervalMs = config.drawIntervalMs ?? 300;
-    const frequency = config.frequency ?? 10;
-    const width = config.width ?? 1280;
-    const height = config.height ?? 720;
-    const maxWorkers = config.maxWorkers ?? 2;
-    const readers = config.readers ?? ['code_128_reader'];
-    const locate = config.locate ?? true;
-    const patchSize = config.patchSize ?? 'medium';
-    const halfSample = config.halfSample ?? false;
+    const drawIntervalMs = config.drawIntervalMs ?? 120;   // Minimum delay between overlay redraws.
+    const frequency = config.frequency ?? 10;               // Max processed frames per second. Lower values reduce CPU usage.
+    const idealWidth = config.width ?? 1280;                // Preferred camera capture width (ideal MediaTrack constraint).
+    const idealHeight = config.height ?? 720;               // Preferred camera capture height (ideal MediaTrack constraint).
+    const maxWorkers = config.maxWorkers ?? 2;              // Upper limit for web workers used by Quagga.
+    const readers = config.readers ?? ['code_128_reader'];  // Barcode decoders Quagga will try, in order.
+    const locate = config.locate ?? true;                   // Enables barcode localization before decoding.
+    const patchSize = config.patchSize ?? 'medium';         // Locator search grid size: smaller is slower but better for small barcodes.
+    const halfSample = config.halfSample ?? false;          // Downsample image by 50% before localization for speed.
+    const facingMode = config.facingMode ?? 'environment';  // Camera preference for back camera on phones/tablets.
+
+    // Create Quagga overlay canvas so we can draw detection guides.
+    const useQuaggaOverlay = config.useQuaggaOverlay ?? true;
+
+    // Scan area crop percentages (0% = full frame).
+    const scanAreaTop = config.scanAreaTop ?? '0%';
+    const scanAreaRight = config.scanAreaRight ?? '0%';
+    const scanAreaLeft = config.scanAreaLeft ?? '0%';
+    const scanAreaBottom = config.scanAreaBottom ?? '0%';
+
+    function buildInputStreamConfig(containerElement) {
+        return {
+            name: 'Live',
+            type: 'LiveStream',
+            target: containerElement,
+            constraints: {
+                width: { ideal: idealWidth },
+                height: { ideal: idealHeight },
+                facingMode
+            },
+            area: {
+                top: scanAreaTop,
+                right: scanAreaRight,
+                left: scanAreaLeft,
+                bottom: scanAreaBottom
+            }
+        };
+    }
+
+    function getNumOfWorkers() {
+        return navigator.hardwareConcurrency
+            ? Math.min(navigator.hardwareConcurrency, maxWorkers)
+            : 1;
+    }
+
+    function buildDecoderConfig() {
+        return { readers };
+    }
+
+    function buildLocatorConfig() {
+        return {
+            patchSize,
+            halfSample
+        };
+    }
 
     function buildQuaggaConfig(containerElement) {
         return {
-            inputStream: {
-                name: 'Live',
-                type: 'LiveStream',
-                target: containerElement,
-                constraints: {
-                    width: { ideal: width },
-                    height: { ideal: height },
-                    facingMode: 'environment'
-                },
-                area: {
-                    top: '0%',
-                    right: '0%',
-                    left: '0%',
-                    bottom: '0%'
-                }
-            },
+            inputStream: buildInputStreamConfig(containerElement),
             frequency,
-            numOfWorkers: navigator.hardwareConcurrency
-                ? Math.min(navigator.hardwareConcurrency, maxWorkers)
-                : 1,
-            decoder: {
-                readers
-            },
+            numOfWorkers: getNumOfWorkers(),
+            decoder: buildDecoderConfig(),
             locate,
-            locator: {
-                patchSize,
-                halfSample
+            locator: buildLocatorConfig(),
+            canvas: {
+                createOverlay: useQuaggaOverlay
             }
         };
+    }
+
+    function clearOverlayCanvas() {
+        const drawingCtx = Quagga.canvas?.ctx?.overlay;
+        const drawingCanvas = Quagga.canvas?.dom?.overlay;
+
+        if (!drawingCtx || !drawingCanvas) {
+            return;
+        }
+
+        const width = parseInt(drawingCanvas.getAttribute('width'), 10);
+        const height = parseInt(drawingCanvas.getAttribute('height'), 10);
+
+        if (Number.isFinite(width) && Number.isFinite(height)) {
+            drawingCtx.clearRect(0, 0, width, height);
+            return;
+        }
+
+        drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
     }
 
     function start(containerElement, onSuccess, onError) {
@@ -70,46 +116,49 @@ export function createQuaggaBarcodeScanner(config = {}) {
         });
 
         processedHandler = function (result) {
-            const now = Date.now();
+            if (!useQuaggaOverlay) {
+                return;
+            }
 
+            const now = Date.now();
             if (now - lastDrawTime < drawIntervalMs) {
                 return;
             }
             lastDrawTime = now;
 
             const drawingCtx = Quagga.canvas?.ctx?.overlay;
-            const drawingCanvas = Quagga.canvas?.dom?.overlay;
-
-            if (drawingCtx && drawingCanvas) {
-                drawingCtx.clearRect(
-                    0,
-                    0,
-                    parseInt(drawingCanvas.getAttribute('width')),
-                    parseInt(drawingCanvas.getAttribute('height'))
-                );
+            if (!drawingCtx) {
+                return;
             }
 
-            if (result) {
-                if (result.boxes) {
-                    result.boxes
-                        .filter((box) => box !== result.box)
-                        .forEach((box) => {
-                            Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: 'blue', lineWidth: 2 });
-                        });
-                }
+            clearOverlayCanvas();
 
-                if (result.box) {
-                    Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: 'green', lineWidth: 2 });
-                }
-
-                if (result.codeResult && result.codeResult.code) {
-                    Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
-                }
+            if (!result) {
+                return;
             }
 
+            if (result.boxes) {
+                result.boxes
+                    .filter((box) => box !== result.box)
+                    .forEach((box) => {
+                        Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: 'blue', lineWidth: 4 });
+                    });
+            }
+
+            if (result.box) {
+                Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: 'green', lineWidth: 4 });
+            }
+
+            if (result.codeResult?.code && result.line) {
+                Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
+            }
         };
 
         detectedHandler = function (result) {
+            if (!result?.codeResult?.code || !result?.codeResult?.format) {
+                return;
+            }
+
             const code = result.codeResult.code;
             const format = result.codeResult.format;
             const scanKey = `${code}-${format}`;
@@ -165,6 +214,7 @@ export function createQuaggaBarcodeScanner(config = {}) {
         }
 
         if (isRunning) {
+            clearOverlayCanvas();
             Quagga.stop();
             isRunning = false;
             console.log('Quagga barcode scanner stopped');

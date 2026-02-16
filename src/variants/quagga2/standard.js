@@ -4,18 +4,17 @@ import { createQuagga2ScannerVariant } from './core.js';
 // Quagga2 standard variation
 const quagga2StandardVariant = createQuagga2ScannerVariant({
     label: 'standard',
-    drawIntervalMs: 300,
     frequency: 10,
-    width: 1280,
-    height: 720,
+    width: 1920,
+    height: 1080,
     maxWorkers: 2,
     readers: ['code_128_reader'],
     locate: true,
-    patchSize: 'medium',
+    patchSize: 'small',
     halfSample: false,
     qrScanIntervalMs: 300,
     qrStartDelayMs: 1000,
-    qrOverlayColor: 'purple'
+    qrOverlayColor: 'blue'
 });
 
 registerScannerVariant('quagga2', {

@@ -1,10 +1,14 @@
 import { createQuaggaBarcodeScanner } from './barcodeScanner.js';
 import { createQuaggaQRScanner } from './qrScanner.js';
 
-// Shared Quagga2 scanner variant core
+// Shared Quagga2 scanner variant orchestrator.
+// This module coordinates barcode + QR scanners and lifecycle timing.
 export function createQuagga2ScannerVariant(config = {}) {
-    const barcodeScanner = createQuaggaBarcodeScanner({
-        drawIntervalMs: config.drawIntervalMs,
+    const qrStartDelayMs = config.qrStartDelayMs ?? 1000;   // Delay before enabling the QR scanner after Quagga has started.
+    const variantLabel = config.label ?? 'default';         // Label used only for logs to identify the current variant.
+    
+    // Dedicated config object for barcode scanner settings.
+    const barcodeScannerConfig = {
         frequency: config.frequency,
         width: config.width,
         height: config.height,
@@ -12,17 +16,23 @@ export function createQuagga2ScannerVariant(config = {}) {
         readers: config.readers,
         locate: config.locate,
         patchSize: config.patchSize,
-        halfSample: config.halfSample
-    });
+        halfSample: config.halfSample,
+        facingMode: config.facingMode,
+        scanAreaTop: config.scanAreaTop,
+        scanAreaRight: config.scanAreaRight,
+        scanAreaLeft: config.scanAreaLeft,
+        scanAreaBottom: config.scanAreaBottom
+    };
 
-    const qrScanner = createQuaggaQRScanner({
+    // Dedicated config object for QR scanner settings.
+    const qrScannerConfig = {
         scanIntervalMs: config.qrScanIntervalMs,
         overlayColor: config.qrOverlayColor,
         resolveVideoElement: config.resolveVideoElement
-    });
+    };
 
-    const qrStartDelayMs = config.qrStartDelayMs ?? 1000;
-    const variantLabel = config.label ?? 'default';
+    const barcodeScanner = createQuaggaBarcodeScanner(barcodeScannerConfig);
+    const qrScanner = createQuaggaQRScanner(qrScannerConfig);
 
     let isRunning = false;
     let qrStartTimeout = null;

@@ -4,8 +4,7 @@ import { createQuagga2ScannerVariant } from './core.js';
 // Quagga2 throttled variation
 const quagga2ThrottledVariant = createQuagga2ScannerVariant({
     label: 'throttled',
-    drawIntervalMs: 420,
-    frequency: 6,
+    frequency: 5,
     width: 960,
     height: 540,
     maxWorkers: 1,
@@ -15,7 +14,7 @@ const quagga2ThrottledVariant = createQuagga2ScannerVariant({
     halfSample: true,
     qrScanIntervalMs: 420,
     qrStartDelayMs: 1000,
-    qrOverlayColor: 'purple'
+    qrOverlayColor: 'blue'
 });
 
 registerScannerVariant('quagga2-throttled', {
