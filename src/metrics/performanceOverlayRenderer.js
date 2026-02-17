@@ -7,6 +7,19 @@ export function createPerformanceOverlayRenderer() {
         target.style.fontSize = isCompactViewport ? '11px' : '12px';
         target.style.padding = isCompactViewport ? '8px 10px' : '10px 12px';
         target.style.minWidth = isCompactViewport ? '180px' : '220px';
+
+        if (isCompactViewport) {
+            target.style.top = 'auto';
+            target.style.bottom = 'calc(env(safe-area-inset-bottom, 0px) + 8px)';
+            target.style.left = 'calc(env(safe-area-inset-left, 0px) + 8px)';
+            target.style.right = 'auto';
+            return;
+        }
+
+        target.style.top = 'calc(env(safe-area-inset-top, 0px) + 8px)';
+        target.style.bottom = 'auto';
+        target.style.left = 'calc(env(safe-area-inset-left, 0px) + 8px)';
+        target.style.right = 'auto';
     }
 
     function ensurePanel() {

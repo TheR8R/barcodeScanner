@@ -1,44 +1,57 @@
-# Barcode Scanning Considerations
+# Barcode Scanner Notes
 
-This file tracks practical considerations for scanning quality, stability, and performance.
+This project runs Quagga2 + jsQR with multiple scanner profiles and includes a permutation-based image benchmark workflow.
 
-## False positives and duplicate suppression
+## Scanner runtime behavior
 
 - **Confirmation threshold:** a code must be detected **2 times** before it is accepted.
-- **Confirmation window:** both detections must happen within **500 ms** (`bufferTimeout`) or the pending detection is discarded.
-- **Short re-scan cooldown (Quagga2):** accepted scan keys are blocked for **2000 ms** to avoid immediate repeats.
+- **Confirmation window:** both detections must happen within **500 ms**.
+- **Accepted cooldown:** accepted scan keys are blocked for **2000 ms** to reduce immediate duplicates.
+- **Lifecycle discipline:** scanner variants detach handlers and clear intervals on stop to avoid listener buildup.
 
-## Camera and decode setup
+## Active scanner profiles
 
-- Rear camera is preferred (`facingMode: environment`) for mobile use.
-- iOS inline playback support is required (`playsinline`, `webkit-playsinline`) to avoid forced fullscreen behavior.
-- Scan cadence and resolution are variant-specific and should be tuned together:
-  - Higher cadence/resolution improves small/far-code detection but increases CPU and battery usage.
-  - Lower cadence/resolution reduces resource use but may increase time-to-read.
+- Profile keys are: `quagga2-1`, `quagga2-2`, `quagga2-3`, `quagga2-4`, `quagga2-5`.
+- Profile config source of truth: `src/variants/quagga2/profiles/configs.js`.
+- In current app tuning, each profile mainly differs by `patchSize` (`x-small` → `x-large`) and some processing flags.
 
-## Variant tradeoffs to compare
+## Benchmark workflow (image-based)
 
-- **Quagga2 profile (standard):**
-  - `frequency: 10`
-  - `1920x1080`
-  - QR scan interval `300 ms`
-- **Quagga2 profile (throttled):**
-  - `frequency: 5`
-  - `960x540`
-  - QR scan interval `420 ms`
+1. Put test images in `pictures/` (jpg/png/webp/bmp).
+2. Generate permutation matrix:
+   - `bun run generate:permutations`
+3. Run benchmark against all permutations and all 5 profiles:
+   - `bun run benchmark:profiles --timeout-ms 2000`
 
-## Performance-focused measurement notes (iPhone)
+Optional flags:
 
-- Compare variants under the same lighting, distance, and device thermal state.
-- Measure over sustained sessions (60-120s), not only first scans.
-- Prefer metrics tied to app responsiveness and resource pressure:
-  - startup latency,
-  - event-loop lag/load estimate,
-  - heap (when available in Safari).
-- iOS Safari memory APIs can be limited; treat heap as best-effort.
+- `--pictures-dir <path>`
+- `--reports-dir <path>`
+- `--matrix-file <path>`
+- `--attempt-timeout-ms <ms>`
 
-## Operational notes
+## Permutation matrix definition
 
-- Keep scanner lifecycle strict: start once, stop cleanly, clear intervals/listeners.
-- Avoid background scanning when scanner UI is stopped.
-- Keep overlay/metrics lightweight to avoid affecting measured scanner performance.
+Generated matrix combines:
+
+- `width`: `1920`, `1280`, `960`, `480`
+- `height`: `1080`, `720`, `540`, `270`
+- `halfSample`: `true`, `false`
+
+Each permutation contains 5 configs where all profiles share the same `width`, `height`, and `halfSample`, while `patchSize` is fixed per profile:
+
+- profile 1: `x-small`
+- profile 2: `small`
+- profile 3: `medium`
+- profile 4: `large`
+- profile 5: `x-large`
+
+## Benchmark outputs
+
+Reports are written to `reports/`:
+
+- JSON: full raw benchmark data per permutation/profile/image.
+- Markdown: includes
+  - Permutation summary table
+  - **Top 5 permutations** sorted by total hits
+  - Detailed per-permutation image hit/miss matrix and per-profile breakdown

@@ -1,0 +1,2911 @@
+{
+  "generatedAt": "2026-02-16T13:37:18.937Z",
+  "schemaVersion": 1,
+  "profileOrder": [
+    "quagga2-1",
+    "quagga2-2",
+    "quagga2-3",
+    "quagga2-4",
+    "quagga2-5"
+  ],
+  "dimensions": {
+    "width": [
+      1920,
+      1280,
+      960,
+      480
+    ],
+    "height": [
+      1080,
+      720,
+      540,
+      270
+    ],
+    "halfSample": [
+      true,
+      false
+    ]
+  },
+  "permutations": [
+    {
+      "id": "perm-001",
+      "shared": {
+        "width": 1920,
+        "height": 1080,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1920,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1920,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1920,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1920,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1920,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-002",
+      "shared": {
+        "width": 1920,
+        "height": 1080,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1920,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1920,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1920,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1920,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1920,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-003",
+      "shared": {
+        "width": 1920,
+        "height": 720,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1920,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1920,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1920,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1920,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1920,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-004",
+      "shared": {
+        "width": 1920,
+        "height": 720,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1920,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1920,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1920,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1920,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1920,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-005",
+      "shared": {
+        "width": 1920,
+        "height": 540,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1920,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1920,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1920,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1920,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1920,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-006",
+      "shared": {
+        "width": 1920,
+        "height": 540,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1920,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1920,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1920,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1920,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1920,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-007",
+      "shared": {
+        "width": 1920,
+        "height": 270,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1920,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1920,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1920,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1920,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1920,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-008",
+      "shared": {
+        "width": 1920,
+        "height": 270,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1920,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1920,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1920,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1920,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1920,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-009",
+      "shared": {
+        "width": 1280,
+        "height": 1080,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1280,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1280,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1280,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1280,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1280,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-010",
+      "shared": {
+        "width": 1280,
+        "height": 1080,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1280,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1280,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1280,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1280,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1280,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-011",
+      "shared": {
+        "width": 1280,
+        "height": 720,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1280,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1280,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1280,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1280,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1280,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-012",
+      "shared": {
+        "width": 1280,
+        "height": 720,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1280,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1280,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1280,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1280,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1280,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-013",
+      "shared": {
+        "width": 1280,
+        "height": 540,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1280,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1280,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1280,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1280,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1280,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-014",
+      "shared": {
+        "width": 1280,
+        "height": 540,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1280,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1280,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1280,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1280,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1280,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-015",
+      "shared": {
+        "width": 1280,
+        "height": 270,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1280,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1280,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1280,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1280,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1280,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-016",
+      "shared": {
+        "width": 1280,
+        "height": 270,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 1280,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 1280,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 1280,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 1280,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 1280,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-017",
+      "shared": {
+        "width": 960,
+        "height": 1080,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 960,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 960,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 960,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 960,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 960,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-018",
+      "shared": {
+        "width": 960,
+        "height": 1080,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 960,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 960,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 960,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 960,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 960,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-019",
+      "shared": {
+        "width": 960,
+        "height": 720,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 960,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 960,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 960,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 960,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 960,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-020",
+      "shared": {
+        "width": 960,
+        "height": 720,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 960,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 960,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 960,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 960,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 960,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-021",
+      "shared": {
+        "width": 960,
+        "height": 540,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 960,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 960,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 960,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 960,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 960,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-022",
+      "shared": {
+        "width": 960,
+        "height": 540,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 960,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 960,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 960,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 960,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 960,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-023",
+      "shared": {
+        "width": 960,
+        "height": 270,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 960,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 960,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 960,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 960,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 960,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-024",
+      "shared": {
+        "width": 960,
+        "height": 270,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 960,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 960,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 960,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 960,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 960,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-025",
+      "shared": {
+        "width": 480,
+        "height": 1080,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 480,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 480,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 480,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 480,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 480,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-026",
+      "shared": {
+        "width": 480,
+        "height": 1080,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 480,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 480,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 480,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 480,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 480,
+          "height": 1080,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-027",
+      "shared": {
+        "width": 480,
+        "height": 720,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 480,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 480,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 480,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 480,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 480,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-028",
+      "shared": {
+        "width": 480,
+        "height": 720,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 480,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 480,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 480,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 480,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 480,
+          "height": 720,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-029",
+      "shared": {
+        "width": 480,
+        "height": 540,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 480,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 480,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 480,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 480,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 480,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-030",
+      "shared": {
+        "width": 480,
+        "height": 540,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 480,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 480,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 480,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 480,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 480,
+          "height": 540,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-031",
+      "shared": {
+        "width": 480,
+        "height": 270,
+        "halfSample": true
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 480,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 480,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 480,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 480,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 480,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": true,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    },
+    {
+      "id": "perm-032",
+      "shared": {
+        "width": 480,
+        "height": 270,
+        "halfSample": false
+      },
+      "configs": {
+        "quagga2-1": {
+          "label": "1",
+          "frequency": 10,
+          "width": 480,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-2": {
+          "label": "2",
+          "frequency": 10,
+          "width": 480,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "small",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-3": {
+          "label": "3",
+          "frequency": 10,
+          "width": 480,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "medium",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-4": {
+          "label": "4",
+          "frequency": 10,
+          "width": 480,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        },
+        "quagga2-5": {
+          "label": "5",
+          "frequency": 10,
+          "width": 480,
+          "height": 270,
+          "maxWorkers": 1,
+          "readers": [
+            "code_128_reader"
+          ],
+          "locate": true,
+          "patchSize": "x-large",
+          "halfSample": false,
+          "qrScanIntervalMs": 200,
+          "qrStartDelayMs": 500,
+          "qrOverlayColor": "blue"
+        }
+      }
+    }
+  ]
+}

@@ -3,12 +3,14 @@ import {
     getScannerVariant,
     hasScannerVariant,
     setRuntimeHandlers,
-    scannedCodes,
-    detectionBuffer
+    resetScannerSession
 } from './src/variants/scannerContext.js';
 
-import './src/variants/quagga2/standard.js';
-import './src/variants/quagga2/throttled.js';
+import './src/variants/quagga2/profiles/profile1.js';
+import './src/variants/quagga2/profiles/profile2.js';
+import './src/variants/quagga2/profiles/profile3.js';
+import './src/variants/quagga2/profiles/profile4.js';
+import './src/variants/quagga2/profiles/profile5.js';
 
 // Main coordinator - UI and shared state management
 const replaceBtn = document.getElementById('replace-btn');
@@ -181,9 +183,7 @@ replaceBtn.addEventListener('click', function () {
 });
 
 resetBtn.addEventListener('click', function () {
-    scannedCodes.clear();
-    detectionBuffer.forEach(detection => clearTimeout(detection.timeout));
-    detectionBuffer.clear();
+    resetScannerSession();
 
     const messages = chatMessages.querySelectorAll('.barcode-message');
     messages.forEach(msg => msg.remove());

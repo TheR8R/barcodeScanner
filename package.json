@@ -1,6 +1,11 @@
 {
   "scripts": {
-    "dev": "bunx serve ."
+    "dev": "bunx serve .",
+    "generate:permutations": "bun scripts/generateProfilePermutations.js",
+    "benchmark:profiles": "bun scripts/benchmarkProfiles.js"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@ericblade/quagga2": "^1.12.1"
+  }
 }

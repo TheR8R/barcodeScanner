@@ -1,4 +1,5 @@
-import { getScannerState } from '../scannerContext.js';
+import { confirmScanCandidate, emitDetectedCode } from '../scannerContext.js';
+import { clearOverlayCanvas, drawBarcodeOverlay } from './drawing.js';
 
 // Configurable Quagga2 barcode scanner factory
 export function createQuaggaBarcodeScanner(config = {}) {
@@ -6,27 +7,23 @@ export function createQuaggaBarcodeScanner(config = {}) {
     let lastDrawTime = 0;
     let processedHandler = null;
     let detectedHandler = null;
-
-    const drawIntervalMs = config.drawIntervalMs ?? 120;   // Minimum delay between overlay redraws.
-    const frequency = config.frequency ?? 10;               // Max processed frames per second. Lower values reduce CPU usage.
-    const idealWidth = config.width ?? 1280;                // Preferred camera capture width (ideal MediaTrack constraint).
-    const idealHeight = config.height ?? 720;               // Preferred camera capture height (ideal MediaTrack constraint).
+           
+    const idealWidth = config.width ?? 960;                // Preferred camera capture width 
+    const idealHeight = config.height ?? 540;               // Preferred camera capture height
+    const frequency = config.frequency ?? 6;               // Max processed frames per second. Lower values reduce CPU usage.
+    const drawIntervalMs = config.drawIntervalMs ?? 200;    // Overlay redraw throttle. Detection still runs at configured decode cadence.
     const maxWorkers = config.maxWorkers ?? 2;              // Upper limit for web workers used by Quagga.
     const readers = config.readers ?? ['code_128_reader'];  // Barcode decoders Quagga will try, in order.
     const locate = config.locate ?? true;                   // Enables barcode localization before decoding.
-    const patchSize = config.patchSize ?? 'medium';         // Locator search grid size: smaller is slower but better for small barcodes.
+    const patchSize = config.patchSize ?? 'small';         // Locator search grid size: smaller is slower but better for small barcodes.
     const halfSample = config.halfSample ?? false;          // Downsample image by 50% before localization for speed.
     const facingMode = config.facingMode ?? 'environment';  // Camera preference for back camera on phones/tablets.
-
-    // Create Quagga overlay canvas so we can draw detection guides.
     const useQuaggaOverlay = config.useQuaggaOverlay ?? true;
 
-    // Scan area crop percentages (0% = full frame).
-    const scanAreaTop = config.scanAreaTop ?? '0%';
-    const scanAreaRight = config.scanAreaRight ?? '0%';
-    const scanAreaLeft = config.scanAreaLeft ?? '0%';
-    const scanAreaBottom = config.scanAreaBottom ?? '0%';
-
+    /*
+    * Utility to build the inputStream configuration for Quagga. This defines how Quagga will  access the camera and what constraints it will use.
+    * The containerElement is where Quagga will insert the video element for the camera stream. * We also set the desired width, height, and facing mode for the camera.
+    */
     function buildInputStreamConfig(containerElement) {
         return {
             name: 'Live',
@@ -37,73 +34,74 @@ export function createQuaggaBarcodeScanner(config = {}) {
                 height: { ideal: idealHeight },
                 facingMode
             },
+            // Scan area crop percentages (0% = full frame). Quagga will crop the input frames to this area before processing, which can improve performance and detection speed if you know where the barcode is likely to appear in the frame.
             area: {
-                top: scanAreaTop,
-                right: scanAreaRight,
-                left: scanAreaLeft,
-                bottom: scanAreaBottom
+                top: '0%',
+                right: '0%',
+                left: '0%',
+                bottom: '0%'
             }
         };
     }
 
-    function getNumOfWorkers() {
-        return navigator.hardwareConcurrency
+    /*
+    * Utility to build the complete Quagga configuration object.
+    */
+    function buildQuaggaConfig(containerElement) {
+        const numOfWorkers = navigator.hardwareConcurrency
             ? Math.min(navigator.hardwareConcurrency, maxWorkers)
             : 1;
-    }
 
-    function buildDecoderConfig() {
-        return { readers };
-    }
-
-    function buildLocatorConfig() {
-        return {
-            patchSize,
-            halfSample
-        };
-    }
-
-    function buildQuaggaConfig(containerElement) {
         return {
             inputStream: buildInputStreamConfig(containerElement),
             frequency,
-            numOfWorkers: getNumOfWorkers(),
-            decoder: buildDecoderConfig(),
+            numOfWorkers,
+            decoder: { readers },
             locate,
-            locator: buildLocatorConfig(),
+            locator: {
+                patchSize,
+                halfSample
+            },
             canvas: {
                 createOverlay: useQuaggaOverlay
             }
         };
     }
 
-    function clearOverlayCanvas() {
-        const drawingCtx = Quagga.canvas?.ctx?.overlay;
-        const drawingCanvas = Quagga.canvas?.dom?.overlay;
-
-        if (!drawingCtx || !drawingCanvas) {
-            return;
+    /*
+    * Utility to detach Quagga event handlers. This is important to prevent memory leaks and unintended behavior if start() is called multiple times.
+    * 
+    * Without this cleanup, each start() could add new listeners while old ones remain active.
+    * This would cause duplicated work per frame/detection (higher CPU/load, duplicate events, possible memory growth, and possible side effects).
+    * Calling this function ensures that old handlers are properly removed before adding new ones.
+    */
+    function detachQuaggaHandlers() {
+        if (processedHandler && typeof Quagga.offProcessed === 'function') {
+            Quagga.offProcessed(processedHandler);
+            processedHandler = null;
         }
 
-        const width = parseInt(drawingCanvas.getAttribute('width'), 10);
-        const height = parseInt(drawingCanvas.getAttribute('height'), 10);
-
-        if (Number.isFinite(width) && Number.isFinite(height)) {
-            drawingCtx.clearRect(0, 0, width, height);
-            return;
+        if (detectedHandler && typeof Quagga.offDetected === 'function') {
+            Quagga.offDetected(detectedHandler);
+            detectedHandler = null;
         }
-
-        drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
     }
 
+    /*
+    * The start function initializes Quagga with the configured settings and starts the video stream and barcode processing.
+    */
     function start(containerElement, onSuccess, onError) {
+        if (isRunning) return; // Prevent multiple simultaneous starts.
+        detachQuaggaHandlers(); // Ensure no old handlers are lingering before we start.
+
+        // Initialize Quagga with the generated configuration. The input stream will be attached to the provided container element.
         Quagga.init(buildQuaggaConfig(containerElement), function (err) {
             if (err) {
                 console.error('Quagga initialization failed:', err);
                 if (onError) onError(err);
                 return;
             }
-
+            // For mobile Safari, we need to set the playsinline attribute on the video element to prevent it from going fullscreen when the camera is accessed.
             const video = containerElement.querySelector('video');
             if (video) {
                 video.setAttribute('playsinline', true);
@@ -115,104 +113,52 @@ export function createQuaggaBarcodeScanner(config = {}) {
             if (onSuccess) onSuccess();
         });
 
+        /*
+        * Quagga's onProcessed callback can be very CPU intensive, especially with locate: true.
+        * To mitigate this, we implement a simple throttle to limit how often we attempt to draw the overlay.
+        * Detection still runs at the configured frequency, but the overlay will only update at most once per drawIntervalMs.
+        */
         processedHandler = function (result) {
-            if (!useQuaggaOverlay) {
-                return;
-            }
+            if (!useQuaggaOverlay || !Quagga.canvas?.ctx?.overlay) return; // If we're not using Quagga's built-in overlay or it's not available, skip drawing.
 
-            const now = Date.now();
-            if (now - lastDrawTime < drawIntervalMs) {
-                return;
-            }
+            const now = performance.now();
+            if (now - lastDrawTime < drawIntervalMs) return; // Throttle overlay redraws to reduce CPU usage.
             lastDrawTime = now;
+            
+            clearOverlayCanvas(); // Clear previous overlay drawings.
 
-            const drawingCtx = Quagga.canvas?.ctx?.overlay;
-            if (!drawingCtx) {
-                return;
-            }
-
-            clearOverlayCanvas();
-
-            if (!result) {
-                return;
-            }
-
-            if (result.boxes) {
-                result.boxes
-                    .filter((box) => box !== result.box)
-                    .forEach((box) => {
-                        Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: 'blue', lineWidth: 4 });
-                    });
-            }
-
-            if (result.box) {
-                Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: 'green', lineWidth: 4 });
-            }
-
-            if (result.codeResult?.code && result.line) {
-                Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
-            }
+            if (!result) return;
+            drawBarcodeOverlay(result); // Draw new overlay based on the latest processed frame result.
         };
 
+        /*
+        * The onDetected callback is triggered when Quagga successfully detects and decodes a barcode.
+        * We use the confirmScanCandidate utility to ensure that we don't emit the same barcode multiple times in quick succession.
+        */
         detectedHandler = function (result) {
-            if (!result?.codeResult?.code || !result?.codeResult?.format) {
-                return;
-            }
+            if (!result?.codeResult?.code || !result?.codeResult?.format) return; //if there's no code or format result, bail out early.
 
+            // When a barcode is detected we extract the code and the format.
             const code = result.codeResult.code;
-            const format = result.codeResult.format;
-            const scanKey = `${code}-${format}`;
-            const state = getScannerState();
+            const format = result.codeResult.format; 
+            const scanKey = `${code}-${format}`; 
 
-            if (state.scannedCodes.has(scanKey)) {
-                return;
-            }
-
-            if (!state.detectionBuffer.has(scanKey)) {
-                state.detectionBuffer.set(scanKey, {
-                    count: 1,
-                    timeout: setTimeout(() => {
-                        state.detectionBuffer.delete(scanKey);
-                    }, state.bufferTimeout)
-                });
-                return;
-            }
-
-            const detection = state.detectionBuffer.get(scanKey);
-            detection.count++;
-
-            clearTimeout(detection.timeout);
-            detection.timeout = setTimeout(() => {
-                state.detectionBuffer.delete(scanKey);
-            }, state.bufferTimeout);
-
-            if (detection.count >= state.confirmationThreshold) {
-                clearTimeout(detection.timeout);
-                state.detectionBuffer.delete(scanKey);
-
-                state.scannedCodes.add(scanKey);
-                setTimeout(() => state.scannedCodes.delete(scanKey), 2000);
-
-                state.addBarcodeToChat(code, format);
-                state.playBeep();
-            }
+            // Emit the detected code through the confirmScanCandidate utility, which will handle deduplication and timing of scan confirmations.
+            confirmScanCandidate(scanKey, () => {
+                emitDetectedCode(code, format);
+            });
         };
 
+        // Attach our handlers to Quagga's events.
         Quagga.onProcessed(processedHandler);
         Quagga.onDetected(detectedHandler);
     }
 
     function stop() {
-        if (processedHandler && typeof Quagga.offProcessed === 'function') {
-            Quagga.offProcessed(processedHandler);
-            processedHandler = null;
-        }
+        // Detach event handlers to prevent memory leaks and unintended behavior if start is called again.
+        detachQuaggaHandlers();
 
-        if (detectedHandler && typeof Quagga.offDetected === 'function') {
-            Quagga.offDetected(detectedHandler);
-            detectedHandler = null;
-        }
-
+        // Stop Quagga and clear the overlay canvas. We check if it's running to avoid unnecessary calls.
         if (isRunning) {
             clearOverlayCanvas();
             Quagga.stop();
@@ -221,5 +167,6 @@ export function createQuaggaBarcodeScanner(config = {}) {
         }
     }
 
+    // Return the public API for this scanner variant, which includes start and stop methods.
     return { start, stop };
 }

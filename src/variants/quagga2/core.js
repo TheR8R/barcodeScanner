@@ -1,5 +1,5 @@
 import { createQuaggaBarcodeScanner } from './barcodeScanner.js';
-import { createQuaggaQRScanner } from './qrScanner.js';
+import { createQRScanner } from './qrScanner.js';
 
 // Shared Quagga2 scanner variant orchestrator.
 // This module coordinates barcode + QR scanners and lifecycle timing.
@@ -32,21 +32,36 @@ export function createQuagga2ScannerVariant(config = {}) {
     };
 
     const barcodeScanner = createQuaggaBarcodeScanner(barcodeScannerConfig);
-    const qrScanner = createQuaggaQRScanner(qrScannerConfig);
+    const qrScanner = createQRScanner(qrScannerConfig);
 
     let isRunning = false;
+    let isStarting = false;
     let qrStartTimeout = null;
 
     function start(container, onSuccess, onError) {
+        if (isRunning || isStarting) {
+            return;
+        }
+
+        isStarting = true;
+
         barcodeScanner.start(container, () => {
             qrStartTimeout = setTimeout(() => {
+                if (!isRunning) {
+                    isStarting = false;
+                    return;
+                }
                 qrScanner.start(container);
             }, qrStartDelayMs);
 
             isRunning = true;
+            isStarting = false;
             if (onSuccess) onSuccess();
             console.log(`Quagga2 scanner variant started (${variantLabel})`);
-        }, onError);
+        }, (error) => {
+            isStarting = false;
+            if (onError) onError(error);
+        });
     }
 
     function stop() {
@@ -55,12 +70,11 @@ export function createQuagga2ScannerVariant(config = {}) {
             qrStartTimeout = null;
         }
 
-        if (isRunning) {
-            barcodeScanner.stop();
-            qrScanner.stop();
-            isRunning = false;
-            console.log(`Quagga2 scanner variant stopped (${variantLabel})`);
-        }
+        barcodeScanner.stop();
+        qrScanner.stop();
+        isRunning = false;
+        isStarting = false;
+        console.log(`Quagga2 scanner variant stopped (${variantLabel})`);
     }
 
     return { start, stop };

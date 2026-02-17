@@ -1,7 +1,9 @@
-import { getScannerState } from '../scannerContext.js';
+import { confirmScanCandidate, emitDetectedCode } from '../scannerContext.js';
+import { drawQROverlay } from './drawing.js';
 
 // Configurable jsQR scanner factory that uses Quagga's video element
-export function createQuaggaQRScanner(config = {}) {
+export function createQRScanner(config = {}) {
+    let isRunning = false;
     let qrScanInterval = null;
     let qrCanvas = null;
     let qrContext = null;
@@ -23,95 +25,27 @@ export function createQuaggaQRScanner(config = {}) {
         return containerElement.querySelector('video');
     }
 
-    function drawQROverlay(location, sourceWidth, sourceHeight) {
-        const drawingCtx = Quagga.canvas?.ctx?.overlay;
-        const drawingCanvas = Quagga.canvas?.dom?.overlay;
-        if (!drawingCtx || !drawingCanvas) return;
-
-        const overlayWidthAttr = parseInt(drawingCanvas.getAttribute('width'), 10);
-        const overlayHeightAttr = parseInt(drawingCanvas.getAttribute('height'), 10);
-
-        const overlayWidth = Number.isFinite(overlayWidthAttr) ? overlayWidthAttr : drawingCanvas.width;
-        const overlayHeight = Number.isFinite(overlayHeightAttr) ? overlayHeightAttr : drawingCanvas.height;
-
-        const scaleX = sourceWidth > 0 ? overlayWidth / sourceWidth : 1;
-        const scaleY = sourceHeight > 0 ? overlayHeight / sourceHeight : 1;
-
-        const topLeft = {
-            x: location.topLeftCorner.x * scaleX,
-            y: location.topLeftCorner.y * scaleY
-        };
-        const topRight = {
-            x: location.topRightCorner.x * scaleX,
-            y: location.topRightCorner.y * scaleY
-        };
-        const bottomRight = {
-            x: location.bottomRightCorner.x * scaleX,
-            y: location.bottomRightCorner.y * scaleY
-        };
-        const bottomLeft = {
-            x: location.bottomLeftCorner.x * scaleX,
-            y: location.bottomLeftCorner.y * scaleY
-        };
-
-        drawingCtx.beginPath();
-        drawingCtx.moveTo(topLeft.x, topLeft.y);
-        drawingCtx.lineTo(topRight.x, topRight.y);
-        drawingCtx.lineTo(bottomRight.x, bottomRight.y);
-        drawingCtx.lineTo(bottomLeft.x, bottomLeft.y);
-        drawingCtx.lineTo(topLeft.x, topLeft.y);
-        drawingCtx.lineWidth = 4;
-        drawingCtx.strokeStyle = overlayColor;
-        drawingCtx.stroke();
-    }
-
     function handleQRDetection(code) {
-        const state = getScannerState();
         const qrData = code.data;
         const scanKey = `${qrData}-qr_code`;
-
-        if (state.scannedCodes.has(scanKey)) {
-            return;
-        }
 
         lastDetectedLocation = code.location;
         lastDetectedVideoWidth = qrCanvas?.width ?? videoElement?.videoWidth ?? 0;
         lastDetectedVideoHeight = qrCanvas?.height ?? videoElement?.videoHeight ?? 0;
         lastDetectedAt = Date.now();
 
-        drawQROverlay(lastDetectedLocation, lastDetectedVideoWidth, lastDetectedVideoHeight);
+        drawQROverlay(lastDetectedLocation, lastDetectedVideoWidth, lastDetectedVideoHeight, overlayColor);
 
-        if (!state.detectionBuffer.has(scanKey)) {
-            state.detectionBuffer.set(scanKey, {
-                count: 1,
-                timeout: setTimeout(() => {
-                    state.detectionBuffer.delete(scanKey);
-                }, state.bufferTimeout)
-            });
-            return;
-        }
-
-        const detection = state.detectionBuffer.get(scanKey);
-        detection.count++;
-
-        clearTimeout(detection.timeout);
-        detection.timeout = setTimeout(() => {
-            state.detectionBuffer.delete(scanKey);
-        }, state.bufferTimeout);
-
-        if (detection.count >= state.confirmationThreshold) {
-            clearTimeout(detection.timeout);
-            state.detectionBuffer.delete(scanKey);
-
-            state.scannedCodes.add(scanKey);
-            setTimeout(() => state.scannedCodes.delete(scanKey), 2000);
-
-            state.addBarcodeToChat(qrData, 'QR_CODE');
-            state.playBeep();
-        }
+        confirmScanCandidate(scanKey, () => {
+            emitDetectedCode(qrData, 'QR_CODE');
+        });
     }
 
     function start(containerElement) {
+        if (isRunning) {
+            return;
+        }
+
         videoElement = resolveVideoElement(containerElement);
         if (!videoElement) {
             console.error('Video element not found');
@@ -152,10 +86,11 @@ export function createQuaggaQRScanner(config = {}) {
                 return;
             }
 
-            drawQROverlay(lastDetectedLocation, lastDetectedVideoWidth, lastDetectedVideoHeight);
+            drawQROverlay(lastDetectedLocation, lastDetectedVideoWidth, lastDetectedVideoHeight, overlayColor);
         };
 
         Quagga.onProcessed(processedHandler);
+        isRunning = true;
     }
 
     function stop() {
@@ -174,6 +109,10 @@ export function createQuaggaQRScanner(config = {}) {
         lastDetectedAt = 0;
         lastDetectedVideoWidth = 0;
         lastDetectedVideoHeight = 0;
+        qrContext = null;
+        qrCanvas = null;
+        videoElement = null;
+        isRunning = false;
     }
 
     return { start, stop };
