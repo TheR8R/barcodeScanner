@@ -18,10 +18,8 @@ export function createQuagga2ScannerVariant(config = {}) {
         patchSize: config.patchSize,
         halfSample: config.halfSample,
         facingMode: config.facingMode,
-        scanAreaTop: config.scanAreaTop,
-        scanAreaRight: config.scanAreaRight,
-        scanAreaLeft: config.scanAreaLeft,
-        scanAreaBottom: config.scanAreaBottom
+        useQuaggaOverlay: config.useQuaggaOverlay,
+        area: config.area
     };
 
     // Dedicated config object for QR scanner settings.

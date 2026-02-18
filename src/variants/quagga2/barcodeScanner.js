@@ -1,5 +1,5 @@
 import { confirmScanCandidate, emitDetectedCode } from '../scannerContext.js';
-import { clearOverlayCanvas, drawBarcodeOverlay } from './drawing.js';
+import { clearOverlayCanvas, createStaticScanAreaOverlay, drawBarcodeOverlay, removeStaticScanAreaOverlay } from './drawing.js';
 
 // Configurable Quagga2 barcode scanner factory
 export function createQuaggaBarcodeScanner(config = {}) {
@@ -19,6 +19,14 @@ export function createQuaggaBarcodeScanner(config = {}) {
     const halfSample = config.halfSample ?? false;          // Downsample image by 50% before localization for speed.
     const facingMode = config.facingMode ?? 'environment';  // Camera preference for back camera on phones/tablets.
     const useQuaggaOverlay = config.useQuaggaOverlay ?? true;
+    
+    // Scan area configuration - defines the region where barcode detection occurs
+    const scanArea = config.area ?? {
+        top: '0%',
+        right: '0%',
+        left: '0%',
+        bottom: '0%'
+    };
 
     /*
     * Utility to build the inputStream configuration for Quagga. This defines how Quagga will  access the camera and what constraints it will use.
@@ -35,12 +43,7 @@ export function createQuaggaBarcodeScanner(config = {}) {
                 facingMode
             },
             // Scan area crop percentages (0% = full frame). Quagga will crop the input frames to this area before processing, which can improve performance and detection speed if you know where the barcode is likely to appear in the frame.
-            area: {
-                top: '0%',
-                right: '0%',
-                left: '0%',
-                bottom: '0%'
-            }
+            area: scanArea
         };
     }
 
@@ -110,6 +113,9 @@ export function createQuaggaBarcodeScanner(config = {}) {
 
             Quagga.start();
             isRunning = true;
+
+            requestAnimationFrame(() => createStaticScanAreaOverlay(containerElement, scanArea));
+
             if (onSuccess) onSuccess();
         });
 
@@ -124,8 +130,8 @@ export function createQuaggaBarcodeScanner(config = {}) {
             const now = performance.now();
             if (now - lastDrawTime < drawIntervalMs) return; // Throttle overlay redraws to reduce CPU usage.
             lastDrawTime = now;
-            
-            clearOverlayCanvas(); // Clear previous overlay drawings.
+
+            clearOverlayCanvas(); // Clear previous barcode/QR drawings (static scan-area overlay is separate DOM layer).
 
             if (!result) return;
             drawBarcodeOverlay(result); // Draw new overlay based on the latest processed frame result.
@@ -160,6 +166,7 @@ export function createQuaggaBarcodeScanner(config = {}) {
 
         // Stop Quagga and clear the overlay canvas. We check if it's running to avoid unnecessary calls.
         if (isRunning) {
+            removeStaticScanAreaOverlay();
             clearOverlayCanvas();
             Quagga.stop();
             isRunning = false;

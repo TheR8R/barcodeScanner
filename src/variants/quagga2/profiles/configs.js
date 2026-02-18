@@ -5,6 +5,13 @@ export const QUAGGA2_PROFILE_CONFIGS = {
         frequency: 10,                  //Maximum scans per second. Controls how often frames are processed.
         width: 960,                     //Width of the video stream to be processed by Quagga. Higher values can improve detection accuracy but may reduce performance, especially on mobile devices.
         height: 540,                    //Height of the video stream to be processed by Quagga. Higher values can improve detection accuracy but may reduce performance, especially on mobile devices. 
+        area: {                         //Defines the portion of the video stream to be scanned for barcodes. Specified as percentages from each edge (e.g., top: '10%' means the top 10% of the video frame will be excluded from scanning).
+                                        // Adjusting this can improve performance if you know where barcodes are likely to appear in the frame.
+            top: '0%',
+            right: '0%',
+            left: '0%',
+            bottom: '0%'
+        },                              //Defines the portion of the video stream to be scanned for barcodes. Specified as percentages from each edge (e.g., top: '10%' means the top 10% of the video frame will be excluded from scanning). Adjusting this can improve performance if you know where barcodes are likely to appear in the frame.
         maxWorkers: 1,                  //Maximum number of web workers Quagga will use for processing. More workers can improve performance on multi-core devices but also increase CPU usage.
         readers: ['code_128_reader'],   //List of barcode formats (readers) that Quagga will attempt to decode, in order. Specifying only the formats you need can improve performance.
         locate: true,                   //Controls whether Quagga attempts to locate the barcode in the image.
@@ -17,8 +24,14 @@ export const QUAGGA2_PROFILE_CONFIGS = {
     'quagga2-2': {
         label: '2',
         frequency: 10,
-        width: 960,
-        height: 540,
+        width: 1920,
+        height: 1080,
+        area: {
+            top: '25%',
+            right: '10%',
+            left: '10%',
+            bottom: '25%'
+        },
         maxWorkers: 2,
         readers: ['code_128_reader'],
         locate: true, 
